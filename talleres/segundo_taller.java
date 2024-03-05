@@ -56,26 +56,48 @@ un rango razonable (por ejemplo, 0-120), el programa debe pedirle al usuario que
 nuevo. Utiliza un bucle para seguir solicitando la entrada hasta que sea válida.
 */
 
-        System.out.println("ejercicio 5");
-        boolean flag=false;
-        try {
-            int edad = Integer.parseInt(JOptionPane.showInputDialog(null, "ingrese la edad"));
-            do {
-                if (edad <=0) {
+       /* System.out.println("ejercicio 5");
+        boolean flag= true;
+
+        do {
+            String edadstring = JOptionPane.showInputDialog(null, "ingrese la edad");
+            try {
+                int edad = Integer.parseInt (edadstring);
+                if (edad <= 0) {
                     JOptionPane.showMessageDialog(null, "no has nacido aún, eres una computadora o que?");
                 } else if (edad > 120) {
                     JOptionPane.showMessageDialog(null, "tienes más años que matusalen, aún respiras?");
                 } else {
-                    JOptionPane.showMessageDialog(null,"tu edad es " + edad);
+                    JOptionPane.showMessageDialog(null, "tu edad es " + edad);
+                    flag = false;
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "la edad ingresada no es valida");
+            }
+        } while (flag);*/
 
-            }while (flag ==false);
+
+        /*verificar un número primo: escribe un programa que utilice en bucle para verificar si un número dado es primo o no*/
+        /*System.out.println("punto 5.");
+        boolean flag = false;
+        try {
+            int primo = Integer.parseInt(JOptionPane.showInputDialog(null, "digite un número para saber si es primo o no"));
+
+            for (int i = 2; i < primo; i++) {
+                if (primo % i == 0) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                JOptionPane.showMessageDialog(null, "no es primo");
+            } else {
+                JOptionPane.showMessageDialog(null, " es primo");
+            }
 
         } catch (Exception e) {
-            flag= true;
-            JOptionPane.showMessageDialog(null, "la edad ingresada no es valida");
+            JOptionPane.showConfirmDialog(null, "el numero ingresado no es valido");
         }
-
+*/
 
         /*Sistema de Menú Interactivo: Desarrolla un sistema de menú interactivo que muestre
 diferentes opciones al usuario (por ejemplo, 1. Ver saldo 2. Depositar dinero 3. Retirar
