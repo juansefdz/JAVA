@@ -75,7 +75,7 @@ public class Main {
         String kilometros = JOptionPane.showInputDialog(null,"ingrese los kilometros");
         double kms = Integer.parseInt(kilometros);
 
-        double millas = (kms * 0.621371);
+        double millas = (kms/1.60934);
         JOptionPane.showMessageDialog(null,kms +" Kilometros son:"+ millas +" millas");*/
 
 /*Ejercicio 4: Calculadora de Índice de Masa Corporal (IMC)
