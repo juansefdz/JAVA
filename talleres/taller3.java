@@ -31,6 +31,40 @@ public class Main {
         }
         double promedio = sumatotal/notas.length;
         System.out.println("el promedio de notas del estudiante es " + promedio);
+    /*2. Buscador de Número Mayor y Menor: Utiliza un array de int para almacenar 5
+        números enteros ingresados por el usuario (puedes usar la clase Scanner para la
+        entrada de datos). El programa debe encontrar y mostrar el número mayor y el
+        menor de la lista.*/
+
+        Scanner objScanner = new Scanner(System.in);
+
+        int numeros[] = new int[5];
+
+        for (int i = 0; i <= 4; i++) {
+            System.out.println("ingrese el numero" + (i + 1));
+            try {
+                numeros[i] = objScanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("número no valido!");
+                break;
+            }
+        }
+
+        int mayor = numeros[0];
+        int menor = numeros[0];
+
+        for (int i = 0; i <= 4; i++) {
+
+            if (numeros[i] > mayor) {
+                mayor = numeros[i];
+            }
+            if (numeros[i] < menor) {
+                menor = numeros[i];
+            }
+            System.out.println("el numero mayor es " + mayor);
+            System.out.println("el numero menor es " + menor);
+        }
+
 
    /*3. Sistema de Reservas: Desarrolla un programa para un teatro para gestionar las
         reservas de asientos. El teatro tiene 5 filas con 10 asientos cada una. Utiliza un
