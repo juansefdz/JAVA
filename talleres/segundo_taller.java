@@ -4,40 +4,39 @@ public class Main {
     public static void main(String[] args) {
 
         /*1. Contador Simple: Escribe un programa que utilice un bucle for para contar del 1 al 10 e
-imprimir cada número en la consola.*/
-       /* System.out.println("ejercicio 1");
+        imprimir cada número en la consola.*/
+
+        System.out.println("ejercicio 1");
         for (int i = 1; i < 11; i++) {
             System.out.println(i);
         }
-*/
-        /*2. Suma de Números: Utiliza un bucle while para sumar los números del 1 al 100 e imprimir
-el resultado.*/
-        /* System.out.println("ejercicio 2");
 
-       int contador = 1;
+        /*2. Suma de Números: Utiliza un bucle while para sumar los números del 1 al 100 e imprimir
+        el resultado.*/
+
+        System.out.println("ejercicio 2");
+
+        int contador = 1;
         int suma = 0;
 
-        while (contador<=100){
-            suma+=contador;
+        while (contador <= 100) {
+            suma += contador;
             contador++;
         }
-        System.out.println(suma);*/
+        System.out.println(suma);
 
-    /*3. Tabla de Multiplicar: Utiliza un bucle for anidado para imprimir la tabla de multiplicar
-del 1 al 10.*/
+        /*3. Tabla de Multiplicar: Utiliza un bucle for anidado para imprimir la tabla de multiplicar
+        del 1 al 10.*/
 
-      /*  System.out.println("ejercicio 3");
+        stem.out.println("ejercicio 3");
         for (int i = 1; i < 11; i++) {
             for (int j = 1; j < 11; j++) {
-                System.out.println("tabla de "+i+" x "+j+" = "+(i*j));
+                System.out.println("tabla de " + i + " x " + j + " = " + (i * j));
             }
+        }
 
-        }*/
-
-        /*Suma de Números Pares: Escribe un programa que sume solo los números pares del 1 al
-100 usando un bucle for y luego imprime el resultado.*/
-
-/*
+        /*4. Suma de Números Pares: Escribe un programa que sume solo los números pares del 1 al
+        100 usando un bucle for y luego imprime el resultado.*/
 
         System.out.println("ejercicio 4");
         int suma =0;
@@ -47,16 +46,15 @@ del 1 al 10.*/
             }
         }
         System.out.println("la suma de los numeros pares es" + suma);
-*/
 
 
-        /*Validación de Entrada de Usuario: Escribe un programa que solicite al usuario que
-ingrese su edad. Si el usuario ingresa un valor que no es un número válido o está fuera de
-un rango razonable (por ejemplo, 0-120), el programa debe pedirle al usuario que intente de
-nuevo. Utiliza un bucle para seguir solicitando la entrada hasta que sea válida.
-*/
+        /* 5. Validación de Entrada de Usuario: Escribe un programa que solicite al usuario que
+        ingrese su edad. Si el usuario ingresa un valor que no es un número válido o está fuera de
+        un rango razonable (por ejemplo, 0-120), el programa debe pedirle al usuario que intente de
+        nuevo. Utiliza un bucle para seguir solicitando la entrada hasta que sea válida.
+        */
 
-       /* System.out.println("ejercicio 5");
+       System.out.println("ejercicio 5");
         boolean flag= true;
 
         do {
@@ -74,11 +72,11 @@ nuevo. Utiliza un bucle para seguir solicitando la entrada hasta que sea válida
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "la edad ingresada no es valida");
             }
-        } while (flag);*/
+        } while (flag);
 
+        /* 6. verificar un número primo: escribe un programa que utilice en bucle para verificar si un número dado es primo o no*/
 
-        /*verificar un número primo: escribe un programa que utilice en bucle para verificar si un número dado es primo o no*/
-        /*System.out.println("punto 5.");
+        System.out.println("punto 5.");
         boolean flag = false;
         try {
             int primo = Integer.parseInt(JOptionPane.showInputDialog(null, "digite un número para saber si es primo o no"));
@@ -97,14 +95,39 @@ nuevo. Utiliza un bucle para seguir solicitando la entrada hasta que sea válida
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "el numero ingresado no es valido");
         }
-*/
 
-        /*Sistema de Menú Interactivo: Desarrolla un sistema de menú interactivo que muestre
-diferentes opciones al usuario (por ejemplo, 1. Ver saldo 2. Depositar dinero 3. Retirar
-dinero 4. Salir). Utiliza un bucle para permitir al usuario interactuar con el menú hasta que
-elija salir.*/
 
-        /*System.out.println("ejercicio 9.");
+        /*7. Juego de Adivinanzas: Crea un pequeño juego de adivinanzas donde el usuario debe
+        adivinar un número generado aleatoriamente. Utiliza un bucle do-while para permitir al
+        usuario seguir intentando hasta que adivine el número.
+
+
+         
+        8. Cálculo de Interés Compuesto: Crea un programa que calcule el crecimiento de una
+        inversión bajo un esquema de interés compuesto. El usuario debe poder ingresar el capital
+        inicial, la tasa de interés anual y el número de años. Utiliza un bucle para calcular y mostrar
+        el saldo de la inversión al final de cada año.
+         */
+        System.out.println("ejercicio 8");
+
+        double capital = Double.parseDouble(JOptionPane.showInputDialog(null,"ingrese su capital para calcular el interes"));
+        double tasa = Double.parseDouble(JOptionPane.showInputDialog(null,"ingrese la tasa de interes anual"));
+        double anios = Double.parseDouble(JOptionPane.showInputDialog(null,"ingrese el numero de años que desea invertir"));
+
+        for (int i = 1; i <= anios; i++) {
+            double saldo = capital * Math.pow(1 + tasa, i);
+            JOptionPane.showMessageDialog(null,"Saldo después de " + i + " años: " + saldo);
+        }
+
+
+        /*9. Sistema de Menú Interactivo: Desarrolla un sistema de menú interactivo que muestre
+        diferentes opciones al usuario (por ejemplo, 1. Ver saldo 2. Depositar dinero 3. Retirar
+        dinero 4. Salir). Utiliza un bucle para permitir al usuario interactuar con el menú hasta que
+        elija salir.
+         */
+        
+         System.out.println("ejercicio 9.");
+
         String option;
         double saldo = 0;
 
@@ -128,15 +151,15 @@ elija salir.*/
                     break;
                 case "3":
                     try {
-                        double valorRetirar = Double.parseDouble(JOptionPane.showInputDialog(null,"cuanto dinero desea retirar"));
-                        if (valorRetirar<=saldo){
-                            saldo-=valorRetirar;
-                            JOptionPane.showMessageDialog(null,"retiro de dinero exitoso, \n tu nuevo saldo es:  "+ saldo );
+                        double valorRetirar = Double.parseDouble(JOptionPane.showInputDialog(null, "cuanto dinero desea retirar"));
+                        if (valorRetirar <= saldo) {
+                            saldo -= valorRetirar;
+                            JOptionPane.showMessageDialog(null, "retiro de dinero exitoso, \n tu nuevo saldo es:  " + saldo);
                         } else {
-                            JOptionPane.showMessageDialog(null,"saldo no disponible :(");
+                            JOptionPane.showMessageDialog(null, "saldo no disponible :(");
                         }
-                    }catch (Exception e){
-                        JOptionPane.showMessageDialog(null,"valor ingresado no es valido");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "valor ingresado no es valido");
                     }
 
 
@@ -144,6 +167,6 @@ elija salir.*/
 
             }
         } while (!option.equals("4"));
-*/
+
     }
 }
