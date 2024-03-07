@@ -160,6 +160,42 @@ public class Main {
             }
         } while (opcion != 5);
 
+          /*Planificador de Viajes: Escribe un programa para ayudar a planificar viajes por
+        carretera. Los usuarios pueden ingresar varias ciudades que planean visitar en
+        orden. Utiliza un arreglo de String para almacenar las ciudades. El programa debe
+        ser capaz de:
+             Añadir y remover ciudades del itinerario.
+             Mostrar la lista completa de ciudades a visitar.
+             (Opcional) Calcular la distancia total del viaje asumiendo distancias ficticias entre
+        ciudades consecutivas.*/
+
+        int option =0;
+        ArrayList<String> viajes = new ArrayList<>();
+
+
+
+        do{
+            try {
+                JOptionPane.showMessageDialog(null,"PLANIFICADOR DE VIAJES \n\n 1. Agregar ciudad al intinerario. \n 2. eliminar ciudad del intinerario \n 3. mostrar la lista completa de las ciudades a visitar \n 4. calcular la distancia total del viaje - según distancias ingresadas - \n 5. salir. \n \n Digite una opción ");
+
+                switch (option){
+
+                    case 1:
+                        String nuevaCiudad =JOptionPane.showInputDialog("Digite la ciudad que desea ingresar para planificar el viaje");
+                        viajes.add(nuevaCiudad.toLowerCase());
+                        JOptionPane.showMessageDialog(null,"ciudad agregada correctamente!");
+                        break;
+                }
+
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "opción ingresada no valida");
+            }
+        }while (option !=4);
+
+        System.out.println("PLANIFICADOR DE VIAJES");
+
+
+
     /*4. Lista de Reproducción Musical: Imagina que estás creando una aplicación para
         gestionar listas de reproducción musicales. Cada canción es representada
         simplemente por su nombre. El programa debe permitir:
