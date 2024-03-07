@@ -160,7 +160,80 @@ public class Main {
             }
         } while (opcion != 5);
 
+    /*4. Lista de Reproducción Musical: Imagina que estás creando una aplicación para
+        gestionar listas de reproducción musicales. Cada canción es representada
+        simplemente por su nombre. El programa debe permitir:
+         Añadir y remover canciones de la lista de reproducción.
+         Mostrar la canción actual y las siguientes en la lista.
+         Saltar a la siguiente canción.*/
 
+
+        //los <> se denominan como "genericos", donde se ingresan parámetros
+        //creación de la lista de canciones.
+        ArrayList<String> playlist = new ArrayList<>();
+
+        int option =0;
+        int cancionActual =0;
+
+        do {
+            try {
+
+                option = Integer.parseInt(JOptionPane.showInputDialog("PLAYLIST \n .1 Agregar canción \n 2. Eliminar canción \n 3. mostrar canción actual y siguientes \n 4.saltar a la siguiente canción \n 5. salir. \n\n INGRESE UNA OPCIÓN: "));
+
+                switch (option){
+                    case 1: //añadir una canción
+                        String nuevaCancion = JOptionPane.showInputDialog("ingrese el nombre de la canción ");
+                        //agregamos la nueva canción
+                        playlist.add(nuevaCancion.toLowerCase());
+                        JOptionPane.showMessageDialog(null, "canción agregada correctamente! ;)");
+                        break;
+                    case 2: //eliminar canción.
+                        String cancionEliminar = JOptionPane.showInputDialog("ingrese la canción que desee eliminar");
+
+                        if(playlist.remove(cancionEliminar.toLowerCase())){
+                            JOptionPane.showMessageDialog(null,cancionEliminar + " eliminada correctamente");
+                        }else {
+                            JOptionPane.showMessageDialog(null, cancionEliminar +" no se encuentra en la playlist");
+
+                        }
+                    case 3://mostrar canción actual y la siguiente en la lista
+                        //preguntar si la playlist esta vacía
+                        if(playlist.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "la playlist está vacía!");
+                        }else {
+                            //creamos una variable para guardar texto en todas las canciones
+                            String listaTotal="";
+
+                            //agregamos la canción actual
+                            listaTotal+="canción actual \n" + playlist.get(cancionActual)+"\n \n \n ";
+                            //recorrer el array
+
+                            for (int i = cancionActual; i < playlist.size()-1; i++) {
+                                //recorrer el array
+                                //por cada canción que se recorra agrega en el string
+                                listaTotal += "siguiente canción \n" + playlist.get(i+1)+"\n";
+
+                            }
+                            JOptionPane.showMessageDialog(null,listaTotal);
+                        }
+                        break;
+                    case 4://saltar a la canción siguiente
+                        //validar que exista una siguiente canción
+                        if (cancionActual+1<playlist.size()){
+                            cancionActual++;
+                            JOptionPane.showMessageDialog(null,playlist.get(cancionActual)+" Reproducida correctamente!");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "playlist finalizada");
+                            cancionActual=0;
+                        }
+
+                        break;
+                }
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "caracteres no validos!");
+            }
+
+        }while (option != 5);
 
       
 
