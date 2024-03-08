@@ -160,7 +160,7 @@ public class Main {
             }
         } while (opcion != 5);
 
-          /*Planificador de Viajes: Escribe un programa para ayudar a planificar viajes por
+          /*4. Planificador de Viajes: Escribe un programa para ayudar a planificar viajes por
         carretera. Los usuarios pueden ingresar varias ciudades que planean visitar en
         orden. Utiliza un arreglo de String para almacenar las ciudades. El programa debe
         ser capaz de:
@@ -169,14 +169,16 @@ public class Main {
              (Opcional) Calcular la distancia total del viaje asumiendo distancias ficticias entre
         ciudades consecutivas.*/
 
+       
         int option =0;
+        int viajeInicial=0;
         ArrayList<String> viajes = new ArrayList<>();
 
 
 
         do{
             try {
-                JOptionPane.showMessageDialog(null,"PLANIFICADOR DE VIAJES \n\n 1. Agregar ciudad al intinerario. \n 2. eliminar ciudad del intinerario \n 3. mostrar la lista completa de las ciudades a visitar \n 4. calcular la distancia total del viaje - según distancias ingresadas - \n 5. salir. \n \n Digite una opción ");
+                option= Integer.parseInt(JOptionPane.showInputDialog(null,"PLANIFICADOR DE VIAJES \n\n 1. Agregar ciudad al intinerario. \n 2. eliminar ciudad del intinerario \n 3. mostrar la lista completa de las ciudades a visitar \n 4. calcular la distancia total del viaje - según distancias ingresadas - \n 5. salir. \n \n Digite una opción "));
 
                 switch (option){
 
@@ -185,18 +187,55 @@ public class Main {
                         viajes.add(nuevaCiudad.toLowerCase());
                         JOptionPane.showMessageDialog(null,"ciudad agregada correctamente!");
                         break;
+                    case 2:
+                        String ciudadEliminar = JOptionPane.showInputDialog("ingrese la ciudad que desee eliminar");
+
+                        if(viajes.remove(ciudadEliminar.toLowerCase())){
+                            JOptionPane.showMessageDialog(null,ciudadEliminar + " eliminada correctamente");
+                        }else {
+                            JOptionPane.showMessageDialog(null, ciudadEliminar +" no se encuentra en el itinerario");
+
+                        }
+                        break;
+                    case 3:
+                        if (viajes.isEmpty()){
+                            JOptionPane.showMessageDialog(null,"el itinerario esta vacio");
+                        }else {
+                            String itinerario="";
+
+                            itinerario+=viajes.get(viajeInicial);
+                            for (int i = viajeInicial; i < viajes.size()-1; i++) {
+                                itinerario += viajes.get(i+1)+"\n";
+                            }
+                            JOptionPane.showMessageDialog(null, "Itinerario completo \n "+ itinerario );
+                        }
+                        break;
+                    case 4:
+                        if (viajes.size() < 2) {
+                            JOptionPane.showMessageDialog(null, "Debe haber al menos dos ciudades en el itinerario");
+                        } else {
+
+                            double distanciaTotal = 0.0;
+                            for (int i = 0; i < viajes.size() - 1; i++) {
+                                String ciudadActual = viajes.get(i);
+                                String ciudadSiguiente = viajes.get(i + 1);
+                                double distancia = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la distancia entre " + ciudadActual + " y " + ciudadSiguiente));
+                                distanciaTotal += distancia;
+                            }
+                            JOptionPane.showMessageDialog(null, "La distancia total del viaje es: " + distanciaTotal);
+
+                        }
+                        break;
                 }
 
             }catch (Exception e){
                 JOptionPane.showMessageDialog(null, "opción ingresada no valida");
             }
-        }while (option !=4);
-
-        System.out.println("PLANIFICADOR DE VIAJES");
+        }while (option !=5);
 
 
 
-    /*4. Lista de Reproducción Musical: Imagina que estás creando una aplicación para
+    /*5. Lista de Reproducción Musical: Imagina que estás creando una aplicación para
         gestionar listas de reproducción musicales. Cada canción es representada
         simplemente por su nombre. El programa debe permitir:
          Añadir y remover canciones de la lista de reproducción.
