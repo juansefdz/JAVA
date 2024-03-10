@@ -1,18 +1,20 @@
 import java.util.Scanner;
 
+/*Cuenta Bancaria: Implementa una clase CuentaBancaria con los atributos
+titular y balance. Añade métodos para depositar dinero, retirar dinero (no
+permitas que el balance se vuelva negativo) y mostrar el balance actual.*/
 public class Banco {
 
     private String titular;
     private double balance;
 
-//constructor
-
+    // Constructor
     public Banco(String titular, double balance) {
         this.titular = titular;
         this.balance = balance;
     }
 
-//método
+    // Métodos
     public String getTitular() {
         return titular;
     }
@@ -29,55 +31,71 @@ public class Banco {
         this.balance = balance;
     }
 
-    //métodos solicitados
-    public void depositarDinero {
+    // Método para depositar dinero
+    public void depositarDinero() {
         Scanner objScanner = new Scanner(System.in);
         double dineroDepositado = 0;
         do {
             try {
-                System.out.println("ingrese la cantidad de dinero que desee depositar:  ");
-                dineroDepositado=objScanner.nextDouble();
-
-            }catch (Exception e){
-                System.out.println("ingrese una cifra valida!");
+                System.out.println("Ingrese la cantidad de dinero que desee depositar: ");
+                dineroDepositado = objScanner.nextDouble();
+                if (dineroDepositado > 0) {
+                    double nuevoBalance = getBalance() + dineroDepositado;
+                    setBalance(nuevoBalance);
+                    System.out.println("Se han depositado $" + dineroDepositado + " con éxito.");
+                    System.out.println("Su nuevo balance es $" + getBalance());
+                } else {
+                    System.out.println("Por favor, ingrese una cantidad válida mayor que 0.");
+                }
+            } catch (Exception e) {
+                System.out.println("Por favor, ingrese una cifra válida.");
+                objScanner.nextLine(); // Limpiar el buffer del scanner
             }
-
-        }while (dineroDepositado<0);
-
+        } while (dineroDepositado <= 0);
     }
 
-    public void retirarDinero{
+    // Método para retirar dinero
+    public void retirarDinero() {
         Scanner objScanner = new Scanner(System.in);
         double dineroRetirado = 0;
         do {
             try {
-                System.out.println("ingrese la cantidad de dinero que desee retirar:  ");
-
-                dineroRetirado=objScanner.nextDouble();
-                if (dineroRetirado<getBalance()){
-                    double nuevoBalance=getBalance()-dineroRetirado;
+                System.out.println("Ingrese la cantidad de dinero que desee retirar: ");
+                dineroRetirado = objScanner.nextDouble();
+                if (dineroRetirado > 0 && dineroRetirado <= getBalance()) {
+                    double nuevoBalance = getBalance() - dineroRetirado;
                     setBalance(nuevoBalance);
-                    System.out.println("su nuevo balance es "+getBalance());
-
-                }else{
-                    System.out.println("la cantidad de dinero que se desea retirar excede su balance");
+                    System.out.println("Se han retirado $" + dineroRetirado + " con éxito.");
+                    System.out.println("Su nuevo balance es $" + getBalance());
+                } else if (dineroRetirado > getBalance()) {
+                    System.out.println("La cantidad de dinero que se desea retirar excede su balance.");
+                } else {
+                    System.out.println("Por favor, ingrese una cantidad válida mayor que 0.");
                 }
-
-
-            }catch (Exception e){
-                System.out.println("ingrese una cifra valida!");
+            } catch (Exception e) {
+                System.out.println("Por favor, ingrese una cifra válida.");
+                objScanner.nextLine(); // Limpiar el buffer del scanner
             }
-
-        }while (dineroDepositado<0);
-
+        } while (dineroRetirado <= 0 || dineroRetirado > getBalance());
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Banco{" +
-                "String=" + titular +
+                "titular='" + titular + '\'' +
                 ", balance=" + balance +
                 '}';
     }
+
+
 }
 
+
+public class Main {
+    public static void main(String[] args) {
+        Banco cuenta = new Banco("Juan", 1000.0);
+        cuenta.depositarDinero();
+        cuenta.retirarDinero();
+        System.out.println(cuenta);
+    }
+}
