@@ -1,6 +1,3 @@
-package ejercicio_04;
-
-import java.awt.*;
 
 public class Circulo extends Figura {
 
