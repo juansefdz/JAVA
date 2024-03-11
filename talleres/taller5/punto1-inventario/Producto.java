@@ -6,6 +6,9 @@ public class Producto {
 
     //constructor producto
     public Producto(int id, String nombre, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
     }
     //get y set de producto (id, nombre, precio)
     public int getId() {

@@ -1,12 +1,15 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.*;
+
 public class Inventario {
 
-    private ArrayList<Producto> listaProductos;
+    private java.util.ArrayList<Producto> listaProductos;
+
 
     public Inventario() {
-        this.listaProductos = new ArrayList<>();
+        this.listaProductos = new java.util.ArrayList<>();
     }
 
     //métodos especificos
@@ -28,21 +31,36 @@ public class Inventario {
         }
         return null;
     }
+    public void listarProductos() {
+        if (listaProductos.isEmpty()) {
+            showMessageDialog(null, "La lista de productos está vacía");
+        } else {
+            String listaProducto = "";
+            for (Producto producto : listaProductos) {
+                listaProducto += "id: " + producto.getId() + " Nombre: " + producto.getNombre() + " Precio: " + producto.getPrecio() + "\n";
+            }
 
-    public void listarProductos (){
-        if (Producto.isEmpty()){
-            JOptionPane.showMessageDialog(("La lista de productos esta vacia"));
-        }else {
-            String listaProducto ="";
-            Producto producto;
-            listaProducto+= "id: "+producto.getId()+"Nombre: "+producto.getNombre()+"Precio: "+producto.getPrecio();
-
+            JOptionPane.showMessageDialog(null, "LISTA DE PRODUCTOS\n"+"\n"+listaProducto);
         }
-
-        System.out.println(("entro"));
-
     }
+    /*public void listarProductos() {
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "La lista de productos está vacía");
+        } else {
+            StringBuilder formattedList = new StringBuilder("LISTA DE PRODUCTOS\n\n");
+            String header = String.format(" %-4s  %-20s  %-10s %n", "ID", "NOMBRE", "PRECIO");
+            formattedList.append(header);
+            for (Producto producto : listaProductos) {
+                String productoRow = String.format(" %-4d  %-20s  %-10.2f %n", producto.getId(), producto.getNombre(), producto.getPrecio());
+                formattedList.append(productoRow);
+            }
+            JOptionPane.showMessageDialog(null, formattedList.toString());
+        }
+    }*/
+
 
     public void agregarProducto(int id, String nombreProducto, double precioProducto) {
+        Producto producto = new Producto(id, nombreProducto, precioProducto);
+        agregarProducto(producto);
     }
 }

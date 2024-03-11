@@ -16,8 +16,8 @@ Implementa métodos para añadir, eliminar, y listar productos, además de busca
 por nombre o categoría.*/
 public class Main {
     public static void main(String[] args) {
-    Menu menu = new Menu();
-    menu.menu();
+        Menu menu = new Menu();
+        menu.menu();
 
     }
 
