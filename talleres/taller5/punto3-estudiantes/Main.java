@@ -86,7 +86,7 @@ public class Main {
                                 """);
                         option3 = objScanner.nextInt();
                         switch (option3) {
-                            case 1:
+                            case 1://agregar estudiante
                                 objGestion.listarCurso();
                                 System.out.println("ingrese el codigo del curso donde deseas inscribir el estudiante");
                                 String codigo = objScanner.next();
@@ -97,7 +97,22 @@ public class Main {
                                     curso.guardarEstudiante(objScanner);
                                 }
                                 break;
-                            case 3:
+                            case 2://eliminar estudiante
+                                //1 se listan los cursos
+                                objGestion.listarCurso();
+                                //se pide el codigo del curso donde esta el estudiante que se desea eliminar
+                                System.out.println("ingrese el curso donde se encuentra el estudiante a eliminar");
+                                codigo =objScanner.next();
+                                Curso objCurso = objGestion.buscarPorCodigo(codigo);
+                                if (objCurso==null){
+                                    System.out.println("codigo no valido");
+                                }else {
+                                    //eliminar
+                                    objCurso.eliminarEstudiante(objScanner);
+                                }
+
+                                break;
+                            case 3://listar estudiantes
                                 objGestion.listarCurso();
                                 System.out.println("ingrese el codigo del curso donde deseas inscribir el estudiante");
                                  codigo = objScanner.next();
@@ -117,3 +132,4 @@ public class Main {
 
     }
 }
+
