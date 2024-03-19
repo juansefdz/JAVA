@@ -25,9 +25,9 @@ import java.sql.SQLException;
                 System.out.println("conection successful!");
 
 
-            } catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {//driver no instalado
                 System.out.println("error: driver has not been installed");
-            } catch (SQLException e) {
+            } catch (SQLException e) { //error propio de la base de datos
                 System.out.println("error: can't been establish connection with the database! ");
             }
             return objConnection;
