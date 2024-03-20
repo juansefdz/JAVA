@@ -182,40 +182,31 @@ public class CoderModel implements CRUD {
     }
 
 
-    public Object findByName(Object){
-
+    public List<Coder> findByName(String name) {
         Connection objConnection = ConfigDB.openConnection();
+        List<Coder> coderByName = new ArrayList<>();
+        String sql = "SELECT * FROM coder WHERE coder.name = ?;";
 
-        List<Object> listCoders = new ArrayList<>();
-
-        String sql = "SELECT * FROM coder WHERE coder.name =?;";
-
-        try{
-
-            PreparedStatement objPrepare= objConnection.prepareStatement(sql);
-            
-            objPrepare.setString(2,"name");
+        try {
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1, name);
 
             ResultSet objResult = objPrepare.executeQuery();
 
-            // mientras haya un registro siguiente entonces
-            while (objResult.next()){
+            // Mientras haya un registro siguiente
+            while (objResult.next()) {
                 Coder objCoder = new Coder();
                 objCoder.setId(objResult.getInt("id"));
                 objCoder.setName(objResult.getString("name"));
                 objCoder.setClan(objResult.getString("clan"));
                 objCoder.setAge(objResult.getInt("age"));
-
-
+                coderByName.add(objCoder);
             }
-            
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"holi");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
-        
-
-        return null;
-    } 
+        return coderByName;
+    }
 
 
 

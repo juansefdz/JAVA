@@ -4,8 +4,6 @@ import model.CoderModel;
 
 import javax.swing.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         CoderController objCoderController = new CoderController();
@@ -34,8 +32,14 @@ public class Main {
             case "2": //List all coders
                 objCoderController.create();
                 break;
+            case "3": //update coder
+                //objCoderController.update();
+                break;
             case "4"://delete coder
                 objCoderController.delete();
+                break;
+            case "5"://get by name
+                objCoderController.getByName();
                 break;
         }
 
