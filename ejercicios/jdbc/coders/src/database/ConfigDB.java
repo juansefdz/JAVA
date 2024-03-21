@@ -17,9 +17,9 @@ import java.sql.SQLException;
                 //clas forname permite implementar el driver
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 //se crean las variables para las credenciales a la db
-                String url = "jdbc:mysql://localhost:3306/coder";
+                String url = "jdbc:mysql://localhost:3306/_01_jdbc";
                 String user = "root";
-                String password = "";
+                String password = "Rlwl2023.";
                 //establece la conexion
                 objConnection = (Connection) DriverManager.getConnection(url, user, password);
                 System.out.println("conection successful!");

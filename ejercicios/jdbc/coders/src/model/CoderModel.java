@@ -185,11 +185,11 @@ public class CoderModel implements CRUD {
     public List<Coder> findByName(String name) {
         Connection objConnection = ConfigDB.openConnection();
         List<Coder> coderByName = new ArrayList<>();
-        String sql = "SELECT * FROM coder WHERE coder.name = ?;";
+        String sql = "SELECT * FROM coder WHERE coder.name LIKE ?;";
 
         try {
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
-            objPrepare.setString(1, name);
+            objPrepare.setString(1, "%"+name+"%");
 
             ResultSet objResult = objPrepare.executeQuery();
 
