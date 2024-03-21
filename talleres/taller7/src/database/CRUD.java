@@ -10,10 +10,10 @@ public interface CRUD {
     public boolean consult(Object object);
 
     //consult
-    
+
     public Object findById(int id);
 
-    public Object findbyAuthor(Object object);
+    public Object findbyAuthor(String author_name);
 
     public Object findbytitle(Object object);
 

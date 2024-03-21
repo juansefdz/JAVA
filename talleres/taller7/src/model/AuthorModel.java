@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static database.ConfigDB.openConnection;
-
 public class AuthorModel implements CRUD {
 
     AuthorModel objAuthorModel;
@@ -24,17 +22,17 @@ public class AuthorModel implements CRUD {
 
     @Override
     public Object insert(Object object) {
-        Connection objConnection = ConfigDB.openConnection();
+        Connection objConnection = ConfigDB.openConnection();  //open Connection
         Author objAuthor = (Author) object;
         try {
-            String sql = "INSERT INTO author (name,nationality) VALUES(?,?);";
+            String sql = "INSERT INTO author (name,nationality) VALUES(?,?);"; //SQL sentence
 
-            PreparedStatement objPrepare = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement objPrepare = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
 
-            objPrepare.setString(1, objAuthor.getAuthorName());
-            objPrepare.setString(2, objAuthor.getNationality());
+            objPrepare.setString(1, objAuthor.getAuthorName()); //values to  query parameters
+            objPrepare.setString(2, objAuthor.getNationality());//values to  query parameters
 
-            objPrepare.execute();
+            objPrepare.execute(); //execute the query
 
             ResultSet objResult = objPrepare.getGeneratedKeys();
 
@@ -48,7 +46,7 @@ public class AuthorModel implements CRUD {
             JOptionPane.showMessageDialog(null, "error adding author" + e.getMessage());
         }
 
-        ConfigDB.closeConnection();
+        ConfigDB.closeConnection(); //close connection
         return objAuthor;
     }
 
@@ -57,25 +55,10 @@ public class AuthorModel implements CRUD {
         return false;
     }
 
-    @Override
-    public Object findById(int id) {
-        return null;
-    }
-
-    @Override
-    public Object findbyAuthor(Object object) {
-        return null;
-    }
-
-    @Override
-    public Object findbytitle(Object object) {
-        return null;
-    }
-
     public List<Object> findAll() {
         Connection objConnection = ConfigDB.openConnection(); //open connection
         List<Object> listAuthors = new ArrayList<>();
-        try{
+        try {
             String sql = "SELECT * FROM author ORDER BY author.id ASC;"; //SQL sentence
             PreparedStatement objPrepareStatement = (PreparedStatement) objConnection.prepareStatement(sql);//prepare statement
             ResultSet objResult = objPrepareStatement.executeQuery(); //Execute query or prepare
@@ -83,14 +66,14 @@ public class AuthorModel implements CRUD {
             while (objResult.next()) { //Get results
                 Author objAuthor = new Author();
                 objAuthor.setId(objResult.getInt("id"));
-                objAuthor.setAuthorName(objResult.getString("author_name"));
-                objAuthor.setNationality(objResult.getString("nationality"));
+                objAuthor.setAuthorName(objResult.getString("author_name")); //values to  query parameters
+                objAuthor.setNationality(objResult.getString("nationality"));//values to  query parameters
 
                 listAuthors.add(objAuthor); //add elements to author list
 
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data acquisition error");
         }
         ConfigDB.closeConnection(); //close connection
@@ -99,8 +82,89 @@ public class AuthorModel implements CRUD {
     }
 
     @Override
+    public Object findById(int id) {
+
+        Connection objConnection = ConfigDB.openConnection();
+        Author objAuthor = null;
+        try {
+            String sql = "SELECT * FROM author WHERE id =?;"; //SQL sentence
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql); //prepareStatment
+            objPrepare.setInt(1, id); //Preparestatment value
+            ResultSet objResult = objPrepare.executeQuery(); //execute query
+
+            while (objResult.next()) {
+
+                objAuthor = new Author();
+                objAuthor.setId(objResult.getInt("id"));
+                objAuthor.setAuthorName(objResult.getString("author_name")); //values to  query parameters
+                objAuthor.setNationality(objResult.getString("nationality"));//values to  query parameters
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        ConfigDB.closeConnection();
+
+        return objAuthor;
+    }
+
+    @Override
+    public Object findbyAuthor(String author_name) {
+
+        Connection objConnection = ConfigDB.openConnection(); //open connection
+        List<Author> authorByName = new ArrayList<>();
+        String sql = "SELECT * FROM coder WHERE author.name LIKE ?;"; //SQL sentence
+
+        try {
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql); //prepareStatment
+            objPrepare.setString(1, "%" + author_name + "%"); //Preparestatment value
+
+            ResultSet objResult = objPrepare.executeQuery(); //execute query
+            while (objResult.next()) {
+                Author objAuthor = new Author();
+                objAuthor.setId(objResult.getInt("id"));
+                objAuthor.setAuthorName(objResult.getString("author_name")); //values to  query parameters
+                objAuthor.setNationality(objResult.getString("nationality")); //values to  query parameters
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        ConfigDB.closeConnection(); //close connection
+        return authorByName;
+    }
+
+    @Override
+    public Object findbytitle(Object object) {
+
+        return null;
+    }
+    @Override
     public boolean update(Object object) {
-        return false;
+
+        Connection objConnection = ConfigDB.openConnection(); //open connection
+
+        Author objAuthor = (Author) object; //convert object
+        boolean isUpdated = false;
+
+        try {
+
+            String sql = "UPDATE coder SET name_author = ?, nationality = ? WHERE id = ?;"; //SQL sentence
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statemente
+
+            objPrepare.setString(1, objAuthor.getAuthorName());  //values to  query parameters
+            objPrepare.setString(2, objAuthor.getNationality()); //values to  query parameters
+            objPrepare.setInt(3, objAuthor.getId());             //values to  query parameters
+
+            int rowAffected = objPrepare.executeUpdate(); //execute the query
+            if (rowAffected > 0) { //validate if there is affected (modified data)
+                isUpdated = true;
+                JOptionPane.showMessageDialog(null, "The update was successful.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        ConfigDB.closeConnection();  //Close connection
+
+        return isUpdated;
     }
 
     @Override
@@ -113,20 +177,21 @@ public class AuthorModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection(); //open connection
 
         try {
-            String sql = "DELETE FROM bookshop WHERE author.id=?;"; //SQL sentence
+            String sql = "DELETE FROM author WHERE author.id=?;"; //SQL sentence
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
 
             objPrepare.setInt(1, objAuthor.getId()); //assign valor from SQL sentence
 
-            int totalAffectedRows = objPrepare.executeUpdate();
-            if (totalAffectedRows > 0) {
+            int totalAffectedRows = objPrepare.executeUpdate(); //execute the query
+            if (totalAffectedRows > 0) {  //validate if there are affected rows (deleted data)
                 deleteFlag = true;
                 JOptionPane.showMessageDialog(null, "deleted successful the author");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        ConfigDB.closeConnection(); //close connection
         return false;
     }
 
@@ -139,8 +204,7 @@ public class AuthorModel implements CRUD {
             list += objAuthor.toString() + "\n";
 
         }
-        //print author list
-        JOptionPane.showMessageDialog(null, list);
+        JOptionPane.showMessageDialog(null, list); //print author list
 
     }
 
