@@ -1,5 +1,5 @@
 import controller.AuthorController;
-import controller.BookCrontroller;
+import controller.BookController;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ public class Menu {
 
         int option = 0;
         AuthorController objAuthorController = new AuthorController();
-        //BookCrontroller objBookController = new BookCrontroller();
+        BookController objBookController = new BookController();
         do {
             String[] mainOptions = {"AUTHORS SECTION", "BOOKS SECTION", "EXIT"};
             option = JOptionPane.showOptionDialog(null, "Choose one option: ", "MENU BOOKSHOP", JOptionPane.DEFAULT_OPTION,
@@ -52,27 +52,27 @@ public class Menu {
 
                         switch (optionBook) {
                             case "Insert new book by author":
-                                //objBookController.create();
+                                objBookController.create();
 
                                 break;
                             case "Show all books":
-                                //objBookController.getAll();
+                                objBookController.getAll();
 
                                 break;
                             case "Show books by ID":
-                                //objBookController.findById();
+                                objBookController.findById();
 
                                 break;
                             case "Show books by title":
-                                //objBookController.getByTitle();
+                                objBookController.getByTitle();
 
                                 break;
                             case "Show books by author":
-                                //objBookController.findBookByAuthor();
+                                objBookController.findBookByAuthor();
 
                                 break;
                             case "Update specific book ":
-                                //objBookController.update();
+                                objBookController.update();
                                 break;
 
                             case "back":

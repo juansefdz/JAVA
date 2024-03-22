@@ -12,47 +12,32 @@ import java.util.List;
 
 public class BookModel implements CRUD {
 
-    BookModel objBookModel;
-
-    public BookModel() {
-        this.objBookModel = new BookModel();
-    }
 
     @Override
     public Object insert(Object object) {
-
-        Connection objConnection = ConfigDB.openConnection();  //open Connection
+        Connection objConnection = null;
         Book objBook = (Book) object;
         try {
-            String sql = "INSERT INTO book (title,year_publication,price,id_author) VALUES(?,?,?,?);"; //SQL sentence
-
-            PreparedStatement objPrepare = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
-
-            objPrepare.setString(1, objBook.getTitle()); //values to  query parameters
-            objPrepare.setDate(2, Date.valueOf(objBook.getYear_publication())); //values to  query parameters
-            objPrepare.setDouble(1, objBook.getPrice()); //values to  query parameters
-            objPrepare.setInt(1, objBook.getFk_id_author()); //values to  query parameters
-
-            //values to  query parameters
-
-            objPrepare.execute(); //execute the query
-
+            objConnection = ConfigDB.openConnection();
+            String sql = "INSERT INTO book (title, year_publication, price, id_author) VALUES (?, ?, ?, ?)";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            objPrepare.setString(1, objBook.getTitle());
+            objPrepare.setDate(2, Date.valueOf(objBook.getYear_publication()));
+            objPrepare.setDouble(3, objBook.getPrice());
+            objPrepare.setInt(4, objBook.getFk_id_author());
+            objPrepare.execute();
             ResultSet objResult = objPrepare.getGeneratedKeys();
-
-            while (objResult.next()) {
+            if (objResult.next()) {
                 objBook.setId(objResult.getInt(1));
             }
-            objPrepare.close();
-            JOptionPane.showMessageDialog(null, "author has been create successful");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "error adding author" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Book has been created successfully.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error adding book: " + e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
         }
-
-        ConfigDB.closeConnection(); //close connection
         return objBook;
     }
-
     @Override
     public boolean consult(Object object) {
         return false;
@@ -188,28 +173,24 @@ public class BookModel implements CRUD {
 
     @Override
     public boolean delete(Object object) {
-        Book onjBook = (Book) object; //convert obj entity
-
+        Book objBook = (Book) object;
         boolean deleteFlag = false;
-
-        Connection objConnection = ConfigDB.openConnection(); //open connection
-
+        Connection objConnection = null;
         try {
-            String sql = "DELETE FROM book WHERE book.id=?;"; //SQL sentence
-
-            PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
-
-            objPrepare.setInt(1, onjBook.getId()); //assign valor from SQL sentence
-
-            int totalAffectedRows = objPrepare.executeUpdate(); //execute the query
-            if (totalAffectedRows > 0) {  //validate if there are affected rows (deleted data)
+            objConnection = ConfigDB.openConnection();
+            String sql = "DELETE FROM book WHERE id=?";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1, objBook.getId());
+            int totalAffectedRows = objPrepare.executeUpdate();
+            if (totalAffectedRows > 0) {
                 deleteFlag = true;
-                JOptionPane.showMessageDialog(null, "deleted successful the book");
+                JOptionPane.showMessageDialog(null, "Book deleted successfully.");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error deleting book: " + e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
         }
-        ConfigDB.closeConnection(); //close connection
-        return false;
+        return deleteFlag;
     }
 }
