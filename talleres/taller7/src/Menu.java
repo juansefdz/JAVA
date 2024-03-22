@@ -74,6 +74,9 @@ public class Menu {
                             case "Update specific book ":
                                 objBookController.update();
                                 break;
+                            case "Delete book by ID", "Back":
+                                objBookController.delete();
+                                break;
 
                             case "back":
                                 break;
