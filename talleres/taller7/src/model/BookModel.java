@@ -58,7 +58,6 @@ public class BookModel implements CRUD {
         return false;
     }
 
-
     public Object findById(int id) {
 
         Connection objConnection = ConfigDB.openConnection();

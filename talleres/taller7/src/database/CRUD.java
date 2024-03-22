@@ -11,9 +11,9 @@ public interface CRUD {
 
     //consult
 
-/*    public Object findById(int id);*/
+public Object findById(int id);
 
-   /* public Object findbyAuthor(String author_name);*/
+   public Object findbyAuthor(String author_name);
 
     public Object findbytitle(Object object);
 

@@ -1,12 +1,15 @@
 import controller.AuthorController;
+import controller.BookCrontroller;
 
 import javax.swing.*;
+
 
 public class Menu {
     public void menu() {
 
         int option = 0;
         AuthorController objAuthorController = new AuthorController();
+        BookCrontroller objBookController = new BookCrontroller();
         do {
             String[] mainOptions = {"AUTHORS SECTION", "BOOKS SECTION", "EXIT"};
             option = JOptionPane.showOptionDialog(null, "Choose one option: ", "MENU BOOKSHOP", JOptionPane.DEFAULT_OPTION,
@@ -23,17 +26,21 @@ public class Menu {
                                 objAuthorController.create();
                                 break;
                             case "Show all Authors":
+                                objAuthorController.getAll();
                                 break;
                             case "Show author by ID":
+                                objAuthorController.findById();
                                 break;
                             case "Update specific author":
+                                objAuthorController.update();
                                 break;
                             case "Delete author by ID":
+                                objAuthorController.delete();
                                 break;
-                            case"back":
+                            case "back":
                                 break;
                         }
-                    }while (!"Back".equals(optionAuthor));
+                    } while (!"Back".equals(optionAuthor));
 
                     break;
 
@@ -42,6 +49,36 @@ public class Menu {
                     do {
                         String[] optionsBooks = {"Insert new book by author", "Show all books", "Show books by ID", "Show books by title", "Show books by author", "Update specific book ", "Delete book by ID", "Back"};
                         optionBook = (String) JOptionPane.showInputDialog(null, "Select an option: ", "Book section", JOptionPane.QUESTION_MESSAGE, null, optionsBooks, optionsBooks[0]);
+
+                        switch (optionBook) {
+                            case "Insert new book by author":
+                                objBookController.create();
+
+                                break;
+                            case "Show all books":
+                                objBookController.getAll();
+
+                                break;
+                            case "Show books by ID":
+                                objBookController.findById();
+
+                                break;
+                            case "Show books by title":
+                                objBookController.getByTitle();
+
+                                break;
+                            case "Show books by author":
+                                objBookController.getByName();
+
+                                break;
+                            case "Update specific book ":
+                                objBookController.update();
+                                break;
+
+                            case "back":
+                                break;
+                        }
+
                     } while (!"Back".equals(optionBook));
 
                     break;

@@ -17,17 +17,19 @@ public class AuthorController {
 
     public void getAll() {
         String list = this.getAll(this.objAuthorModel.findAll());
-        JOptionPane.showInputDialog(null, list);
+        //JOptionPane.showMessageDialog(null, list);
     }
 
     public String getAll(List ListObject) {
 
         String list = "LIST CODERS \n";
         for (Object objTemp : ListObject) {
-            Author objCoder = (Author) objTemp;
-            list += objCoder.toString() + "\n";
+            Author objAuthor = (Author) objTemp;
+            list += objAuthor.toString() + "\n";
         }
         JOptionPane.showMessageDialog(null, list);
+
+
         return list;
     }
 
@@ -54,8 +56,6 @@ public class AuthorController {
             objAuthor = (Author) this.objAuthorModel.insert(objAuthor);
             JOptionPane.showMessageDialog(null, objAuthor.toString());
         }
-
-
 
 
     }
@@ -94,13 +94,25 @@ public class AuthorController {
         if (objAuthor == null) {
             JOptionPane.showMessageDialog(null, "Author not found!");
         } else {
-            String newAuthorName = JOptionPane.showInputDialog(null, "Enter the new author name:  ", objAuthor.getAuthorName());
-            String newAuthorNationality = JOptionPane.showInputDialog(null, "enter the new nationality: ", String.valueOf(objAuthor.getNationality()));
 
-            //asignamos los nuevos valores
-            objAuthor.setAuthorName(newAuthorName);
+            JPanel panel = new JPanel(new GridLayout(2, 1));
+            JTextField authorName = new JTextField(objAuthor.getAuthorName());
+            JTextField authorNationality = new JTextField(objAuthor.getNationality());
+            panel.add(new JLabel("Author Name: "));
+            panel.add(authorName);
+            panel.add(new JLabel("Author Nationality: "));
+            panel.add(authorNationality);
 
-            objAuthor.setNationality(newAuthorNationality);
+
+            int result = JOptionPane.showConfirmDialog(null, panel, "Ingrese los datos del libro", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String authorNameString = authorName.getText();
+                String authorNationalityString = authorNationality.getText();
+                objAuthor.setAuthorName(authorNameString);
+
+                objAuthor.setNationality(authorNationalityString);
+            }
+
 
             this.objAuthorModel.update(objAuthor);
         }
@@ -119,7 +131,7 @@ public class AuthorController {
         } else {
 
 
-            StringBuilder showAuthors = new StringBuilder("AUTHORS FOUND BY NAME" + "\n => " + authorName.toUpperCase() + "\n");
+            StringBuilder showAuthors = new StringBuilder("AUTHORS FOUND BY NAME => " + authorName.toUpperCase() + "\n");
             for (Author authorTemp : author) {
                 showAuthors.append("ID: ").append(authorTemp.getId()).append("\n");
                 showAuthors.append("Name: ").append(authorTemp.getAuthorName()).append("\n");
@@ -129,5 +141,27 @@ public class AuthorController {
         }
     }
 
+    public void findById() {
 
+        int authorID = Integer.parseInt(JOptionPane.showInputDialog(null, " insert the ID of the author you want to search "));
+
+
+        Object authorId = this.objAuthorModel.findById(authorID);
+        Author castedautor = (Author) authorId;
+        if (authorId == null) {
+            JOptionPane.showMessageDialog(null, "Author ID not found");
+        } else {
+
+
+            StringBuilder showAuthors = new StringBuilder("AUTHORS FOUND BY ID => " + authorID + "\n");
+
+            showAuthors.append("ID: ").append(castedautor.getId()).append("\n");
+            showAuthors.append("Author name: ").append(castedautor.getAuthorName()).append("\n");
+            showAuthors.append("Nationality: ").append(castedautor.getNationality()).append("\n\n");
+
+            JOptionPane.showMessageDialog(null, showAuthors.toString());
+        }
+    }
 }
+
+

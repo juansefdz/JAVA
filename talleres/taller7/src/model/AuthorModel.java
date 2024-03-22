@@ -22,7 +22,7 @@ public class AuthorModel implements CRUD {
     @Override
     public Object insert(Object object) {
         Connection objConnection = ConfigDB.openConnection();  //open Connection
-        System.out.println("PASO");
+
         Author objAuthor = (Author) object;
         try {
             String sql = "INSERT INTO author (author_name,nationality) VALUES(?,?);"; //SQL sentence
@@ -112,7 +112,7 @@ public class AuthorModel implements CRUD {
 
         Connection objConnection = ConfigDB.openConnection(); //open connection
         List<Author> authorByName = new ArrayList<>();
-        String sql = "SELECT * FROM coder WHERE author.name LIKE ?;"; //SQL sentence
+        String sql = "SELECT * FROM author WHERE author.name LIKE ?;"; //SQL sentence
 
         try {
             PreparedStatement objPrepare = objConnection.prepareStatement(sql); //prepareStatment
@@ -147,7 +147,7 @@ public class AuthorModel implements CRUD {
 
         try {
 
-            String sql = "UPDATE coder SET name_author = ?, nationality = ? WHERE id = ?;"; //SQL sentence
+            String sql = "UPDATE author SET author = ?, nationality = ? WHERE id = ?;"; //SQL sentence
             PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statemente
 
             objPrepare.setString(1, objAuthor.getAuthorName());  //values to  query parameters
