@@ -177,16 +177,13 @@ public class AuthorModel implements CRUD {
         try {
             objConnection = ConfigDB.openConnection();
 
-            // Obtener todos los libros del autor
-            List<Book> booksToDelete = findBooksByAuthor(objAuthor.getId());
+            List<Book> booksToDelete = findBooksByAuthor(objAuthor.getId()); //get all books by author
 
-            // Eliminar cada libro del autor
-            for (Book book : booksToDelete) {
+            for (Book book : booksToDelete) {// delete each book by author
                 deleteBook(book);
             }
 
-            // Eliminar el autor
-            String sql = "DELETE FROM author WHERE id=?";
+            String sql = "DELETE FROM author WHERE id=?"; // delete author
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
             objPrepare.setInt(1, objAuthor.getId());
             int totalAffectedRows = objPrepare.executeUpdate();
