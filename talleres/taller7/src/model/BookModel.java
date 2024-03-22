@@ -58,7 +58,7 @@ public class BookModel implements CRUD {
         return false;
     }
 
-    @Override
+
     public Object findById(int id) {
 
         Connection objConnection = ConfigDB.openConnection();
@@ -86,7 +86,7 @@ public class BookModel implements CRUD {
         return objBook;
     }
 
-    @Override
+
     public Object findbyAuthor(String author_name) {
 
         return null;

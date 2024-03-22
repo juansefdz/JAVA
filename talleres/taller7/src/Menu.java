@@ -1,9 +1,12 @@
+import controller.AuthorController;
+
 import javax.swing.*;
 
 public class Menu {
     public void menu() {
 
         int option = 0;
+        AuthorController objAuthorController = new AuthorController();
         do {
             String[] mainOptions = {"AUTHORS SECTION", "BOOKS SECTION", "EXIT"};
             option = JOptionPane.showOptionDialog(null, "Choose one option: ", "MENU BOOKSHOP", JOptionPane.DEFAULT_OPTION,
@@ -14,7 +17,23 @@ public class Menu {
                     do {
                         String[] optionsAuthors = {"Insert New Author", "Show all Authors", "Show author by ID", "Update specific author", "Delete author by ID", "Back"};
                         optionAuthor = (String) JOptionPane.showInputDialog(null, "Select an option: ", "Authors section", JOptionPane.QUESTION_MESSAGE, null, optionsAuthors, optionsAuthors[0]);
-                    } while (!"Back".equals(optionAuthor));
+
+                        switch (optionAuthor) {
+                            case "Insert New Author":
+                                objAuthorController.create();
+                                break;
+                            case "Show all Authors":
+                                break;
+                            case "Show author by ID":
+                                break;
+                            case "Update specific author":
+                                break;
+                            case "Delete author by ID":
+                                break;
+                            case"back":
+                                break;
+                        }
+                    }while (!"Back".equals(optionAuthor));
 
                     break;
 
@@ -28,7 +47,6 @@ public class Menu {
                     break;
 
                 case 2:
-
                     break;
             }
         } while (option != 2);

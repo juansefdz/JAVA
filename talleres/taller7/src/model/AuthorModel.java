@@ -17,15 +17,15 @@ public class AuthorModel implements CRUD {
     AuthorModel objAuthorModel;
 
     public AuthorModel() {
-        this.objAuthorModel = new AuthorModel();
     }
 
     @Override
     public Object insert(Object object) {
         Connection objConnection = ConfigDB.openConnection();  //open Connection
+        System.out.println("PASO");
         Author objAuthor = (Author) object;
         try {
-            String sql = "INSERT INTO author (name,nationality) VALUES(?,?);"; //SQL sentence
+            String sql = "INSERT INTO author (author_name,nationality) VALUES(?,?);"; //SQL sentence
 
             PreparedStatement objPrepare = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
 
@@ -81,7 +81,7 @@ public class AuthorModel implements CRUD {
 
     }
 
-    @Override
+
     public Object findById(int id) {
 
         Connection objConnection = ConfigDB.openConnection();
@@ -107,7 +107,7 @@ public class AuthorModel implements CRUD {
         return objAuthor;
     }
 
-    @Override
+
     public Object findbyAuthor(String author_name) {
 
         Connection objConnection = ConfigDB.openConnection(); //open connection
