@@ -3,6 +3,7 @@ package model;
 import database.CRUD;
 import database.ConfigDB;
 import entity.Author;
+import entity.Book;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -167,32 +168,77 @@ public class AuthorModel implements CRUD {
         return isUpdated;
     }
 
+
     @Override
     public boolean delete(Object object) {
-
-        Author objAuthor = (Author) object; //convert obj entity
-
+        Author objAuthor = (Author) object;
         boolean deleteFlag = false;
-
-        Connection objConnection = ConfigDB.openConnection(); //open connection
-
+        Connection objConnection = null;
         try {
-            String sql = "DELETE FROM author WHERE author.id=?;"; //SQL sentence
+            objConnection = ConfigDB.openConnection();
 
-            PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); //prepare statement
+            // Obtener todos los libros del autor
+            List<Book> booksToDelete = findBooksByAuthor(objAuthor.getId());
 
-            objPrepare.setInt(1, objAuthor.getId()); //assign valor from SQL sentence
-
-            int totalAffectedRows = objPrepare.executeUpdate(); //execute the query
-            if (totalAffectedRows > 0) {  //validate if there are affected rows (deleted data)
-                deleteFlag = true;
-                JOptionPane.showMessageDialog(null, "deleted successful the author");
+            // Eliminar cada libro del autor
+            for (Book book : booksToDelete) {
+                deleteBook(book);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+
+            // Eliminar el autor
+            String sql = "DELETE FROM author WHERE id=?";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1, objAuthor.getId());
+            int totalAffectedRows = objPrepare.executeUpdate();
+            if (totalAffectedRows > 0) {
+                deleteFlag = true;
+                JOptionPane.showMessageDialog(null, "Author deleted successfully.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error deleting author: " + e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
         }
-        ConfigDB.closeConnection(); //close connection
-        return false;
+        return deleteFlag;
+    }
+    private List<Book> findBooksByAuthor(int authorId) {
+        List<Book> books = new ArrayList<>();
+        Connection objConnection = null;
+        try {
+            objConnection = ConfigDB.openConnection();
+            String sql = "SELECT * FROM book WHERE id_author=?";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1, authorId);
+            ResultSet objResult = objPrepare.executeQuery();
+            while (objResult.next()) {
+                Book book = new Book();
+                book.setId(objResult.getInt("id"));
+                book.setTitle(objResult.getString("title"));
+                book.setYear_publication(objResult.getString("year_publication"));
+                book.setPrice(objResult.getDouble("price"));
+                book.setFk_id_author(objResult.getInt("id_author"));
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error finding books by author: " + e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
+        }
+        return books;
+    }
+    private void deleteBook(Book book) {
+        Connection objConnection = null;
+        try {
+            objConnection = ConfigDB.openConnection();
+            String sql = "DELETE FROM book WHERE id=?";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1, book.getId());
+            objPrepare.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error deleting book: " + e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
+        }
     }
 
     public void getAllAuthors() {
