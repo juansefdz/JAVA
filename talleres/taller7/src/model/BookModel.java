@@ -85,11 +85,41 @@ public class BookModel implements CRUD {
         return objBook;
     }
 
-
+    @Override
     public Object findbyAuthor(String author_name) {
-
         return null;
     }
+
+
+    public List<Object> findBookByAuthor(int id){
+
+        Connection objConnection = ConfigDB.openConnection();
+        List<Object> listBooksByAuthor = new ArrayList<>();
+
+        try {
+
+            String sql ="SELECT * FROM book INNER JOIN authors ON authors.id= books.idAuthor WHERE authors.id = ?; ";
+
+            PreparedStatement objPrepared = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+
+            objPrepared.setInt(1,id);
+
+            ResultSet objResultset = (ResultSet) objPrepared.executeQuery();
+
+            while (objResultset.next()){
+                Book objBook = new Book();
+
+            }
+
+
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null,"data error"+e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+        return listBooksByAuthor;
+    }
+
 
     @Override
     public Object findbytitle(Object object) {

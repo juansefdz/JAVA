@@ -167,5 +167,8 @@ public class BookCrontroller {
     }
     public void getByTitle() {
     }
+
+    public void findBookByAuthor() {
+    }
 }
 

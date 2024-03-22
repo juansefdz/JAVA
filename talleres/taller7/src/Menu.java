@@ -68,7 +68,7 @@ public class Menu {
 
                                 break;
                             case "Show books by author":
-                                objBookController.getByName();
+                                objBookController.findBookByAuthor();
 
                                 break;
                             case "Update specific book ":
